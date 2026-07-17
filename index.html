@@ -16,15 +16,33 @@
   a:hover { color: #738B52; }
   ::selection { background: #E8DDCC; }
   [style*="transition: transform"]:hover { transform: translateY(-5px) !important; }
-  a[style*="#738B52"][style*="transition: transform"]:hover { box-shadow: 0 20px 44px -14px rgba(115,139,82,0.8) !important; }
   a[href^="#proizvodi"]:hover { transform: translateY(-3px) scale(1.03) !important; box-shadow: 0 22px 46px -12px rgba(115,139,82,0.85) !important; }
+  #nav-toggle { display: none; }
+  #nav-burger { display: none; }
+  @media (max-width: 760px) {
+    #nav-burger { display: inline-flex; }
+    #main-nav {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0 !important;
+      background: #FFF8F0; border-bottom: 1px solid rgba(109,76,65,0.12);
+      padding: 8px 0; box-shadow: 0 18px 30px -22px rgba(61,61,61,0.5);
+      max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+      transition: max-height .28s ease, opacity .2s ease;
+    }
+    #main-nav > a { padding: 14px 28px !important; border-radius: 0 !important; }
+    #main-nav > a[style*="background"] { margin: 8px 28px; text-align: center; border-radius: 999px !important; }
+    #nav-toggle:checked ~ #main-nav { max-height: 420px; opacity: 1; pointer-events: auto; }
+    #nav-toggle:checked ~ #nav-burger .bar1 { transform: translateY(6px) rotate(45deg); }
+    #nav-toggle:checked ~ #nav-burger .bar2 { opacity: 0; }
+    #nav-toggle:checked ~ #nav-burger .bar3 { transform: translateY(-6px) rotate(-45deg); }
+  }
 </style>
 </head>
 <body style="margin: 0;">
 <div style="overflow-x: clip;">
 
   <header style="position: sticky; top: 0; z-index: 50; background: rgba(255,248,240,0.88); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(109,76,65,0.12);">
-    <div style="max-width: 1120px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+    <div style="position: relative; max-width: 1120px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: nowrap;">
       <a href="#top" style="display: flex; align-items: center; gap: 10px; color: #6D4C41;">
         <svg width="26" height="26" viewBox="0 0 40 40" fill="none" style="flex-shrink: 0;">
           <path d="M20 34 C20 22 26 12 34 8 C34 20 28 30 20 34 Z" fill="none" stroke="#738B52" stroke-width="1.6"></path>
@@ -33,7 +51,13 @@
         </svg>
         <span style="font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; letter-spacing: .2px;">Stari Recept</span>
       </a>
-      <nav style="display: flex; align-items: center; gap: 26px; flex-wrap: wrap; font-size: 16px; font-weight: 600;">
+      <input type="checkbox" id="nav-toggle" aria-hidden="true">
+      <label id="nav-burger" for="nav-toggle" aria-label="Meni" style="flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; margin-left: auto;">
+        <span class="bar1" style="display: block; width: 24px; height: 2px; background: #6D4C41; border-radius: 2px; transition: transform .28s ease, opacity .28s ease;"></span>
+        <span class="bar2" style="display: block; width: 24px; height: 2px; background: #6D4C41; border-radius: 2px; transition: transform .28s ease, opacity .28s ease;"></span>
+        <span class="bar3" style="display: block; width: 24px; height: 2px; background: #6D4C41; border-radius: 2px; transition: transform .28s ease, opacity .28s ease;"></span>
+      </label>
+      <nav id="main-nav" style="display: flex; align-items: center; gap: 26px; flex-wrap: wrap; font-size: 16px; font-weight: 600;">
         <a href="#o-nama">O nama</a>
         <a href="#proizvodi">Proizvodi</a>
         <a href="#prednosti">Prednosti</a>
